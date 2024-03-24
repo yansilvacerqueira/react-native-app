@@ -1,7 +1,9 @@
+import { useState } from 'react';
 import { Button } from '../../components/Button';
 import { Categories } from '../../components/Categories';
 import { Header } from '../../components/Header';
 import { Menu } from '../../components/Menu';
+import { TableModal } from '../../components/TableModal';
 import {
   Container,
   CategorieContainer,
@@ -11,6 +13,15 @@ import {
 } from './styles';
 
 export const Main = () => {
+  const [isTableModalVisible, setIsTableModalVisible] = useState(false);
+  const [selectedTable, setSelectedTable] = useState<string>('');
+
+  const onSaveTable = (table: string) => {
+    setIsTableModalVisible(false);
+    setSelectedTable(table);
+    alert(`Mesa ${table} selecionada`);
+  };
+
   return (
     <Container>
       <Header />
@@ -25,11 +36,19 @@ export const Main = () => {
 
       <Footer>
         <FooterContainer>
-          <Button onPress={() => alert('test')} disabled>
-            Ver carrinho
-          </Button>
+          {!selectedTable && (
+            <Button onPress={() => setIsTableModalVisible(true)}>
+              Novo pedido
+            </Button>
+          )}
         </FooterContainer>
       </Footer>
+
+      <TableModal
+        visible={isTableModalVisible}
+        onClose={() => setIsTableModalVisible(false)}
+        onSave={onSaveTable}
+      />
     </Container>
   );
 };
