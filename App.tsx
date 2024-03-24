@@ -1,6 +1,9 @@
 import { useFonts } from 'expo-font';
 import { Main } from './src/views/Main';
 
+import 'intl';
+import 'intl/locale-data/jsonp/pt-BR';
+
 export default function App() {
   const [loaded] = useFonts({
     'GeneralSans-400': require('./src/assets/fonts/GeneralSans-Regular.otf'),
