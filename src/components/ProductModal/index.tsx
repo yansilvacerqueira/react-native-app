@@ -39,74 +39,61 @@ export const ProductModal = ({
       transparent
       visible={visible}
       animationType="slide"
-      presentationStyle="pageSheet"
       onRequestClose={onClose}
     >
-      <Image
-        source={{
-          uri: `http://192.168.0.125:8081/uploads/${selectedProduct.imagePath}`,
-        }}
-      >
+      <Image source={`${selectedProduct?.imagePath}`}>
         <CloseButton onPress={onClose}>
           <Close />
         </CloseButton>
-
-        <ModalBox>
-          <Header>
-            <Text size={24} weight="600">
-              {selectedProduct.name}
-            </Text>
-
-            <Text color="#666" style={{ marginTop: 8 }}>
-              {selectedProduct.description}
-            </Text>
-          </Header>
-
-          {selectedProduct.ingredients.length > 0 && (
-            <Ingredients>
-              <Text size={16} weight="600">
-                Ingredientes
-              </Text>
-
-              <FlatList
-                data={selectedProduct.ingredients}
-                keyExtractor={({ _id }) => _id}
-                style={{ marginTop: 16 }}
-                showsVerticalScrollIndicator={false}
-                renderItem={({ item }) => (
-                  <Ingredient>
-                    <Text>{item.icon}</Text>
-                    <Text size={14} color="#666" style={{ marginLeft: 16 }}>
-                      {item.name}
-                    </Text>
-                  </Ingredient>
-                )}
-              />
-
-              <Text size={16} weight="600" style={{ marginTop: 16 }}>
-                Preço
-              </Text>
-
-              <Text size={24} weight="600" style={{ marginTop: 8 }}>
-                {formatCurrency(selectedProduct.price)}
-              </Text>
-            </Ingredients>
-          )}
-        </ModalBox>
-
-        <Footer>
-          <FooterContainer>
-            <PriceContainer>
-              <Text color="#666">Preço</Text>
-              <Text size={24} weight="600" style={{ marginTop: 8 }}>
-                {formatCurrency(selectedProduct.price)}
-              </Text>
-            </PriceContainer>
-
-            <Button onPress={handleAddToCart}>Adicionar ao pedido</Button>
-          </FooterContainer>
-        </Footer>
       </Image>
+
+      <ModalBox>
+        <Header>
+          <Text size={24} weight="600">
+            {selectedProduct?.name}
+          </Text>
+
+          <Text color="#666" style={{ marginTop: 8 }}>
+            {selectedProduct?.description}
+          </Text>
+        </Header>
+
+        {selectedProduct?.ingredients?.length > 0 && (
+          <Ingredients>
+            <Text size={16} weight="600">
+              Ingredientes
+            </Text>
+
+            <FlatList
+              data={selectedProduct?.ingredients}
+              keyExtractor={({ _id }) => _id}
+              style={{ marginTop: 16 }}
+              showsVerticalScrollIndicator={false}
+              renderItem={({ item }) => (
+                <Ingredient>
+                  <Text>{item.icon}</Text>
+                  <Text size={14} color="#666" style={{ marginLeft: 16 }}>
+                    {item.name}
+                  </Text>
+                </Ingredient>
+              )}
+            />
+          </Ingredients>
+        )}
+      </ModalBox>
+
+      <Footer>
+        <FooterContainer>
+          <PriceContainer>
+            <Text color="#666">Preço</Text>
+            <Text size={24} weight="600" style={{ marginTop: 8 }}>
+              {formatCurrency(selectedProduct?.price)}
+            </Text>
+          </PriceContainer>
+
+          <Button onPress={handleAddToCart}>Adicionar ao pedido</Button>
+        </FooterContainer>
+      </Footer>
     </Modal>
   );
 };

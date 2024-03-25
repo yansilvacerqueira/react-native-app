@@ -13,15 +13,27 @@ interface MenuProps {
 
 export const Menu = ({ onAddToCart }: MenuProps) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const [selectedProduct, setSelectedProduct] = useState<any>(null);
+  const [selectedProduct, setSelectedProduct] = useState<ProductType | null>();
 
   const handleOpenModal = (product: ProductType) => {
     setIsModalVisible(true);
     setSelectedProduct(product);
   };
 
+  const handleCloseModal = () => {
+    setIsModalVisible(false);
+    setSelectedProduct(null);
+  };
+
   return (
     <>
+      <ProductModal
+        visible={isModalVisible}
+        onClose={handleCloseModal}
+        onAddToCart={onAddToCart}
+        selectedProduct={selectedProduct!}
+      />
+
       <FlatList
         data={products}
         keyExtractor={(product) => product._id}
@@ -30,11 +42,7 @@ export const Menu = ({ onAddToCart }: MenuProps) => {
         ItemSeparatorComponent={Divider}
         renderItem={({ item: product }) => (
           <Product onPress={() => handleOpenModal(product)}>
-            <Image
-              source={{
-                uri: `http://192.168.0.125:8081/uploads/${product.imagePath}`,
-              }}
-            />
+            <Image source={`${product.imagePath}`} />
             <ProductDetails>
               <Text weight="600">{product.name}</Text>
               <Text size={14} color="#666" style={{ marginVertical: 8 }}>
@@ -50,13 +58,6 @@ export const Menu = ({ onAddToCart }: MenuProps) => {
             </AddCart>
           </Product>
         )}
-      />
-
-      <ProductModal
-        visible={isModalVisible}
-        onClose={() => {}}
-        onAddToCart={onAddToCart}
-        selectedProduct={selectedProduct}
       />
     </>
   );
