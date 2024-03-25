@@ -14,6 +14,8 @@ import { formatCurrency } from '../../utils/formatCurrency';
 import { PlusCircle } from '../Icons/PlusCircle';
 import { MinusCircle } from '../Icons/MinusCircle';
 import { Button } from '../Button';
+import { OrderConfirmedModal } from '../OrderConfirmedModal/OrderConfirmedModal';
+import { useState } from 'react';
 
 export interface CartItem {
   product: ProductType;
@@ -24,13 +26,26 @@ interface CartProps {
   cartItems: CartItem[];
   onAddItem: (product: ProductType) => void;
   onRemoveItem: (product: ProductType) => void;
+  onConfirmOrder: () => void;
 }
 
-export const Cart = ({ cartItems, onAddItem, onRemoveItem }: CartProps) => {
+export const Cart = ({
+  cartItems,
+  onAddItem,
+  onRemoveItem,
+  onConfirmOrder,
+}: CartProps) => {
+  const [isOrderConfirmedModalVisible, setIsOrderConfirmedModalVisible] =
+    useState(false);
+
   const total = cartItems.reduce(
     (acc, cartItem) => acc + cartItem.product.price * cartItem.quantity,
     0,
   );
+
+  const handleConfirmOrder = () => {
+    setIsOrderConfirmedModalVisible(true);
+  };
 
   return (
     <>
@@ -98,10 +113,18 @@ export const Cart = ({ cartItems, onAddItem, onRemoveItem }: CartProps) => {
           )}
         </TotalContainer>
 
-        <Button onPress={() => alert('ccru')} disabled={cartItems.length === 0}>
+        <Button onPress={handleConfirmOrder} disabled={cartItems.length === 0}>
           Confirmar pedido
         </Button>
       </Summary>
+
+      <OrderConfirmedModal
+        visible={isOrderConfirmedModalVisible}
+        onConfirm={() => {
+          setIsOrderConfirmedModalVisible(false);
+          onConfirmOrder();
+        }}
+      />
     </>
   );
 };

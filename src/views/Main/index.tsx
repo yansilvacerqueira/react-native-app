@@ -25,7 +25,7 @@ export const Main = () => {
     alert(`Mesa ${table} selecionada`);
   };
 
-  const handleCancelOrder = () => {
+  const handleFinishOrder = () => {
     setSelectedTable('');
     setCartItems([]);
   };
@@ -74,7 +74,7 @@ export const Main = () => {
 
   return (
     <Container>
-      <Header selectedTable={selectedTable} onCancelOrder={handleCancelOrder} />
+      <Header selectedTable={selectedTable} onCancelOrder={handleFinishOrder} />
 
       <CategorieContainer>
         <Categories />
@@ -95,6 +95,7 @@ export const Main = () => {
               cartItems={cartItems}
               onAddItem={handleAddToCart}
               onRemoveItem={handleRemoveFromCart}
+              onConfirmOrder={handleFinishOrder}
             />
           )}
         </FooterContainer>
