@@ -1,5 +1,5 @@
 import { Modal, Platform, Touchable, TouchableOpacity } from 'react-native';
-import { Text } from '../Text';
+import { Text } from '../shared/Text';
 import { Form, Header, Input, ModalBox, Overlay } from './styles';
 import { Close } from '../Icons/Close';
 import { Button } from '../Button';

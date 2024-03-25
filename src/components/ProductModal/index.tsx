@@ -12,23 +12,28 @@ import {
 } from './styles';
 import { Close } from '../Icons/Close';
 import { Product } from '../../mocks/products';
-import { Text } from '../Text';
+import { Text } from '../shared/Text';
 import { formatCurrency } from '../../utils/formatCurrency';
 import { Button } from '../Button';
 
 interface ProductModalProps {
   visible: boolean;
   onClose: () => void;
-  onSave: () => void;
   selectedProduct: Product;
+  onAddToCart: (product: Product) => void;
 }
 
 export const ProductModal = ({
   visible,
   onClose,
-  onSave,
   selectedProduct,
+  onAddToCart,
 }: ProductModalProps) => {
+  const handleAddToCart = () => {
+    onAddToCart(selectedProduct);
+    onClose();
+  };
+
   return (
     <Modal
       transparent
@@ -98,7 +103,7 @@ export const ProductModal = ({
               </Text>
             </PriceContainer>
 
-            <Button onPress={onSave}>Adicionar ao pedido</Button>
+            <Button onPress={handleAddToCart}>Adicionar ao pedido</Button>
           </FooterContainer>
         </Footer>
       </Image>

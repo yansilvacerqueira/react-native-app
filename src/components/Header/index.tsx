@@ -1,5 +1,5 @@
 import { TouchableOpacity } from 'react-native';
-import { Text } from '../Text';
+import { Text } from '../shared/Text';
 import { Container, OrderHeader, Table } from './styles';
 
 interface HeaderProps {
