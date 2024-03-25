@@ -13,6 +13,7 @@ interface TableModalProps {
 
 export const TableModal = ({ visible, onClose, onSave }: TableModalProps) => {
   const [inputValue, setInputValue] = useState<string>();
+
   return (
     <Modal transparent visible={visible} animationType="fade">
       <Overlay behavior={Platform.OS === 'android' ? 'height' : 'padding'}>
@@ -31,7 +32,13 @@ export const TableModal = ({ visible, onClose, onSave }: TableModalProps) => {
               onChangeText={setInputValue}
             />
 
-            <Button onPress={() => onSave(inputValue!)} disabled={!inputValue}>
+            <Button
+              onPress={() => {
+                onSave(inputValue!);
+                setInputValue('');
+              }}
+              disabled={!inputValue}
+            >
               Salvar
             </Button>
           </Form>

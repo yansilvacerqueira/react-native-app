@@ -1,3 +1,18 @@
+export interface Product {
+  _id: string;
+  name: string;
+  description: string;
+  imagePath: string;
+  price: number;
+  ingredients: Ingredient[];
+}
+
+export interface Ingredient {
+  name: string;
+  icon: string;
+  _id: string;
+}
+
 export const products = [
   {
     _id: '6372e040f52e37ef85fe2c5e',

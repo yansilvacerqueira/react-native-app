@@ -11,10 +11,12 @@ import {
   MenuContainer,
   Footer,
 } from './styles';
+import { CartItem } from '../../components/Cart';
 
 export const Main = () => {
   const [isTableModalVisible, setIsTableModalVisible] = useState(false);
   const [selectedTable, setSelectedTable] = useState<string>('');
+  const [cartItems, setCartItems] = useState([] as CartItem[]);
 
   const onSaveTable = (table: string) => {
     setIsTableModalVisible(false);
@@ -22,9 +24,13 @@ export const Main = () => {
     alert(`Mesa ${table} selecionada`);
   };
 
+  const handleCancelOrder = () => {
+    setSelectedTable('');
+  };
+
   return (
     <Container>
-      <Header />
+      <Header selectedTable={selectedTable} onCancelOrder={handleCancelOrder} />
 
       <CategorieContainer>
         <Categories />
